@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learning_course/constants/colors.dart';
 import 'package:learning_course/constants/strings.dart';
 import 'package:learning_course/root.dart';
@@ -12,7 +13,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      locale: const Locale('fa'),
       debugShowCheckedModeBanner: false,
       title: appName,
       theme: ThemeData(
