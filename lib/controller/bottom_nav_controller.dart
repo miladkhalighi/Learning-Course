@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_course/constants/colors.dart';
 import 'package:learning_course/constants/strings.dart';
+import 'package:learning_course/view/screens/home/home_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class BottomNavController extends GetxController{
@@ -62,7 +63,8 @@ class BottomNavController extends GetxController{
     const Center(child: Text('SCREEN 1')), // TODO replace them with correct screens
     const Center(child: Text('SCREEN 2')),
     const Center(child: Text('SCREEN 3')),
-    const Center(child: Text('SCREEN 4')),
+    const HomeScreen(),
   ];
+
 
 }
