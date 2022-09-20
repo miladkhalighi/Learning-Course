@@ -5,8 +5,8 @@ import 'package:learning_course/constants/colors.dart';
 import 'package:learning_course/controller/bottom_nav_controller.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-class Root extends StatelessWidget {
-  const Root({Key? key}) : super(key: key);
+class BottomNavigationScreen extends StatelessWidget {
+  const BottomNavigationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
