@@ -1,11 +1,14 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learning_course/model/course_item_model.dart';
 
-import '../../constants/colors.dart';
+import '../../../constants/colors.dart';
 
 class ItemHorizontal extends StatelessWidget {
+  final CourseItemModel item;
   const ItemHorizontal({
+    required this.item,
     Key? key,
   }) : super(key: key);
 
@@ -24,7 +27,7 @@ class ItemHorizontal extends StatelessWidget {
             BoxShadow(
                 offset: const Offset(0, 4),
                 color: Colors.black.withOpacity(0.25),
-                blurRadius: 16)
+                blurRadius: 10,)
           ]),
       child: Padding(
         padding: const EdgeInsets.all(8),
@@ -45,7 +48,7 @@ class ItemHorizontal extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'صفر تا صد فلاتر',
+                    item.title,
                     style: myTextStyle?.copyWith(
                         fontSize: 10, color: primaryTextColor),
                   ),
@@ -81,12 +84,12 @@ class ItemHorizontal extends StatelessWidget {
                     width: 4,
                   ),
                   Text(
-                    'ساسان صفری',
+                    item.provider,
                     style: myTextStyle,
                   ),
                   const Spacer(),
                   Text(
-                    '10000 تومان',
+                    '${item.price} تومان',
                     style: myTextStyle?.copyWith(color: secondaryColor),
                   ),
                 ],

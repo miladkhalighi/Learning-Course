@@ -1,32 +1,28 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:learning_course/constants/colors.dart';
-import 'package:learning_course/constants/constants.dart';
-import 'package:learning_course/constants/strings.dart';
 
-import '../../components/item_horizontal.dart';
+import 'package:flutter/material.dart';
+import 'package:learning_course/constants/strings.dart';
+import 'package:learning_course/gen/assets.gen.dart';
+import 'package:learning_course/model/course_item_model.dart';
+
+import 'course_category.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var textTheme = Get.textTheme;
+
     return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: EdgeInsets.all(bodyMargin),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            Row(children: [
-              Icon(EvaIcons.personOutline, color: secondaryTextColor, size: 12,),
-              const SizedBox(width: 4,),
-              Text('ساسان صفری',),
-              const Spacer(),
-              Text(showMore, ),
-            ],),
-            ItemHorizontal()
+            const SizedBox(height: 48,),
+            CourseCategory(catTitle: mostPopular, mylist: fakeCourseItems, iconPath: Assets.icons.fire.path),
+            CourseCategory(catTitle: bestOffers, mylist: fakeCourseItems, iconPath: Assets.icons.moneyMouthFace.path),
+            CourseCategory(catTitle: learnFree, mylist: fakeCourseItems, iconPath: Assets.icons.starStruck.path,),
+            CourseCategory(catTitle: learnFree, mylist: fakeCourseItems, iconPath: Assets.icons.starStruck.path,),
+            const SizedBox(height: 48,)
           ],
         ),
       ),

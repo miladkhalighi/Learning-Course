@@ -7,7 +7,7 @@ import 'package:learning_course/view/screens/home/home_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class BottomNavController extends GetxController{
-  var itemIndex = 0.obs;
+  var itemIndex = 3.obs;
 
   updateIndex(int index){
     itemIndex.value = index;
@@ -65,5 +65,6 @@ class BottomNavController extends GetxController{
     const Center(child: Text('SCREEN 3')),
     const HomeScreen(),
   ];
+
 
 }
