@@ -47,6 +47,10 @@ class MyApp extends StatelessWidget {
               fontSize: 14,
               color: secondaryTextColor,
             ),
+            headline4: TextStyle(
+              fontSize: 14,
+              color: primaryColor,
+            ),
             button: const TextStyle(
                 fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
           ),
