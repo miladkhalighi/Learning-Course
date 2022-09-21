@@ -129,10 +129,11 @@ class _LogInScreenState extends State<LogInScreen> {
               Padding(
                 padding: EdgeInsets.only(
                     top: size.height / 38.583, bottom: size.height / 54.502),
-                child: Text(
-                  forgetPassword,
+                child: RichText(
+                    text: TextSpan(
+                  text: forgetPassword,
                   style: textTheme.headline4,
-                ),
+                )),
               ),
               Divider(
                 thickness: 1,
@@ -145,17 +146,19 @@ class _LogInScreenState extends State<LogInScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      notAccount,
+                    RichText(
+                        text: TextSpan(
+                      text: notHaveAccount,
                       style: textTheme.bodyText2,
-                    ),
+                    )),
                     SizedBox(
                       width: size.width / 23.777,
                     ),
-                    Text(
-                      "ثبت نام",
+                    RichText(
+                        text: TextSpan(
+                      text: "ثبت نام",
                       style: textTheme.headline4,
-                    ),
+                    )),
                   ],
                 ),
               ),
