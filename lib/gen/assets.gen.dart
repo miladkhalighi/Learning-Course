@@ -22,12 +22,23 @@ class $AssetsIconsGen {
   /// File path: assets/icons/star-struck.png
   AssetGenImage get starStruck =>
       const AssetGenImage('assets/icons/star-struck.png');
+
+  /// File path: assets/icons/star.png
+  AssetGenImage get star => const AssetGenImage('assets/icons/star.png');
+}
+
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/imgtest.png
+  AssetGenImage get imgtest => const AssetGenImage('assets/images/imgtest.png');
 }
 
 class Assets {
   Assets._();
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage {
