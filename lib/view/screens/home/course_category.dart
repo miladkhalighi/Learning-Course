@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learning_course/view/screens/home/item_vertical_list.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/constants.dart';
@@ -46,7 +47,7 @@ class CourseCategory extends StatelessWidget {
               const Spacer(),
               TextButton(
                 onPressed: (){
-                  //TODO go to ItemVerticalListScreen
+                  Get.to(() => ItemVerticalList(title: catTitle,));
                 }, child: Text(showMore, style: textTheme.bodyText2,),
               ),
             ],

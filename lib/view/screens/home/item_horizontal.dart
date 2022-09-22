@@ -2,6 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_course/model/course_item_model.dart';
+import 'package:learning_course/view/components/components.dart';
 
 import '../../../constants/colors.dart';
 
@@ -20,15 +21,7 @@ class ItemHorizontal extends StatelessWidget {
     return Container(
       width: Get.width / 2,
       height: Get.height / 5.5,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: itemColor,
-          boxShadow: [
-            BoxShadow(
-                offset: const Offset(0, 4),
-                color: Colors.black.withOpacity(0.25),
-                blurRadius: 10,)
-          ]),
+      decoration: itemDecoration,
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
