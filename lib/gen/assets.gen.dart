@@ -18,10 +18,29 @@ class $AssetsImagesGen {
   SvgGenImage get login => const SvgGenImage('assets/images/login.svg');
 }
 
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/fire.png
+  AssetGenImage get fire => const AssetGenImage('assets/icons/fire.png');
+
+  /// File path: assets/icons/money-mouth-face.png
+  AssetGenImage get moneyMouthFace =>
+      const AssetGenImage('assets/icons/money-mouth-face.png');
+
+  /// File path: assets/icons/star-struck.png
+  AssetGenImage get starStruck =>
+      const AssetGenImage('assets/icons/star-struck.png');
+}
+
 class Assets {
   Assets._();
 
+
   static const $AssetsImagesGen images = $AssetsImagesGen();
+
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
+
 }
 
 class AssetGenImage {
