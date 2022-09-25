@@ -11,13 +11,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
-class $AssetsImagesGen {
-  const $AssetsImagesGen();
-
-  /// File path: assets/images/login.svg
-  SvgGenImage get login => const SvgGenImage('assets/images/login.svg');
-}
-
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
@@ -41,20 +34,19 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/imgtest.png
   AssetGenImage get imgtest => const AssetGenImage('assets/images/imgtest.png');
+
+  /// File path: assets/images/login.svg
+  SvgGenImage get login => const SvgGenImage('assets/images/login.svg');
+
+  /// File path: assets/images/signup.svg
+  SvgGenImage get signup => const SvgGenImage('assets/images/signup.svg');
 }
 
 class Assets {
   Assets._();
 
-
-  static const $AssetsImagesGen images = $AssetsImagesGen();
-
   static const $AssetsIconsGen icons = $AssetsIconsGen();
-
-
-
   static const $AssetsImagesGen images = $AssetsImagesGen();
-
 }
 
 class AssetGenImage {
