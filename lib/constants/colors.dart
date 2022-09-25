@@ -9,4 +9,9 @@ var divider = const Color.fromARGB(223, 223, 223, 223);
 var primaryTextColor = const Color(0xFF272727);
 var secondaryTextColor = const Color(0xFFA4A4A4);
 var backgroundColor = const Color(0xFFFFFFFF);
+
 var logInTextField = const Color.fromARGB(240, 240, 240, 240);
+
+
+var itemColor = const Color(0xFFFFFFFF);
+
