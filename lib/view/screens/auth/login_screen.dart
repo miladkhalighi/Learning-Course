@@ -1,7 +1,5 @@
 
-
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_course/constants/colors.dart';
@@ -31,15 +29,10 @@ class _LogInScreenState extends State<LogInScreen> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
-             crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-
                 padding: EdgeInsets.fromLTRB(size.width / 13.375, size.height / 17, size.width / 13.375, size.height / 22.481),
-
-                padding: EdgeInsets.fromLTRB(size.width / 2.06,
-                    size.height / 17, size.width / 13.37, size.height / 22.48),
-
                 child: Text(
                   logInScreenTitle,
                   style: textTheme.headline1,
@@ -64,7 +57,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     filled: true,
                     fillColor: logInTextField,
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: size.height / 44.09),
+                    EdgeInsets.symmetric(horizontal: size.height / 44.095),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide.none),
@@ -93,8 +86,8 @@ class _LogInScreenState extends State<LogInScreen> {
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: logInTextField,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: size.height / 44.09),
+                      contentPadding: EdgeInsets.symmetric(
+                          horizontal: size.height / 44.095),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide.none,
@@ -124,7 +117,6 @@ class _LogInScreenState extends State<LogInScreen> {
                   ),
                 ),
               ),
-
               Center(
                 child: SizedBox(
                   height: size.height / 15.143,
@@ -146,32 +138,13 @@ class _LogInScreenState extends State<LogInScreen> {
                     style: textTheme.bodyText2?.copyWith(color: primaryColor),
                   )),
                 ),
-
-              SizedBox(
-                height: 58,
-                width: size.width / 1.14,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text(logIn),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: size.height / 38.58, bottom: size.height / 54.502),
-                child: RichText(
-                    text: TextSpan(
-                  text: forgetPassword,
-                  style: textTheme.headline4,
-                )),
-
               ),
               Divider(
                 thickness: 1,
                 color: divider,
-                indent: size.width / 13.81,
-                endIndent: size.width / 13.81,
+                indent: size.width / 13.811,
+                endIndent: size.width / 13.811,
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -189,31 +162,9 @@ class _LogInScreenState extends State<LogInScreen> {
                     style: textTheme.bodyText2?.copyWith(color: primaryColor),
                   )),
                 ],
-
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, size.height / 30.85, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RichText(
-                        text: TextSpan(
-                      text: notHaveAccount,
-                      style: textTheme.bodyText2,
-                    )),
-                    SizedBox(
-                      width: size.width / 23.77,
-                    ),
-                    RichText(
-                        text: TextSpan(
-                      text: signUp,
-                      style: textTheme.headline4,
-                    )),
-                  ],
-                ),
-
               ),
               SizedBox(
-                height: size.height / 20.57,
+                height: size.height / 20.577,
               )
             ],
           ),

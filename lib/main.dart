@@ -67,8 +67,6 @@ class MyApp extends StatelessWidget {
                   elevation: 16))),
 
       home: const LogInScreen(),
-
-      home: SignUpScreen(),
     );
   }
 }
