@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_course/constants/colors.dart';
@@ -13,6 +14,7 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  //TODO move these methods into controller
   TextEditingController emailId = TextEditingController();
 
   bool _obscureText = true;
@@ -27,22 +29,20 @@ class _LogInScreenState extends State<LogInScreen> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
+             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(
-                    size.width / 2.06,
-                    size.height / 17,
-                    size.width / 13.375,
-                    size.height / 22.481),
+                padding: EdgeInsets.fromLTRB(size.width / 13.375, size.height / 17, size.width / 13.375, size.height / 22.481),
                 child: Text(
                   logInScreenTitle,
                   style: textTheme.headline1,
                 ),
               ),
-              SvgPicture.asset(
-                Assets.images.login.path,
-                height: size.height / 4.35,
+              Center(
+                child: SvgPicture.asset(
+                  Assets.images.login.path,
+                  height: size.height / 4.35,
+                ),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(
@@ -66,9 +66,9 @@ class _LogInScreenState extends State<LogInScreen> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     prefixIcon: Icon(
-                      Icons.email_outlined,
+                      EvaIcons.emailOutline,
                       color: secondaryTextColor,
-                      size: 22,
+                      size: 24,
                     ),
                     hintText: emailHintText,
                     hintStyle: textTheme.bodyText2,
@@ -96,44 +96,48 @@ class _LogInScreenState extends State<LogInScreen> {
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      hintText: "رمز ورود",
+                      hintText: passwordHintText,
                       hintStyle: textTheme.bodyText2,
                       prefixIcon: Icon(
-                        Icons.lock_outline,
+                        EvaIcons.lockOutline,
                         color: secondaryTextColor,
-                        size: 22,
+                        size: 24,
                       ),
-                      suffixIcon: IconButton(
-                        color: secondaryTextColor,
-                        icon: Icon(_obscureText
-                            ? Icons.visibility_outlined
-                            : Icons.visibility_off_outlined),
-                        iconSize: 22,
-                        onPressed: () {
+                      suffixIcon: GestureDetector(
+                        onTap: (){
+                          //TODO replace setState with Controller
                           setState(() {
                             _obscureText = !_obscureText;
                           });
                         },
-                      )),
+                        child: Icon(!_obscureText
+                            ? EvaIcons.eyeOutline
+                            : EvaIcons.eyeOffOutline,color: secondaryTextColor,size: 24,),
+                      )
+                  ),
                 ),
               ),
-              SizedBox(
-                height: size.height / 15.143,
-                width: size.width / 1.145,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(elevation: 0),
-                  child: Text(logIn),
+              Center(
+                child: SizedBox(
+                  height: size.height / 15.143,
+                  width: size.width / 1.145,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text(logIn),
+                  ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: size.height / 38.583, bottom: size.height / 54.502),
-                child: RichText(
-                    text: TextSpan(
-                  text: forgetPassword,
-                  style: textTheme.headline4,
-                )),
+              Center(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: size.height / 38.583),
+                  child: TextButton(onPressed: (){
+                    //TODO
+                  }, child: Text(
+                    forgetPassword,
+                    style: textTheme.bodyText2?.copyWith(color: primaryColor),
+                  )),
+                ),
               ),
               Divider(
                 thickness: 1,
@@ -141,26 +145,23 @@ class _LogInScreenState extends State<LogInScreen> {
                 indent: size.width / 13.811,
                 endIndent: size.width / 13.811,
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, size.height / 30.856, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RichText(
-                        text: TextSpan(
-                      text: notHaveAccount,
-                      style: textTheme.bodyText2,
-                    )),
-                    SizedBox(
-                      width: size.width / 23.777,
-                    ),
-                    RichText(
-                        text: TextSpan(
-                      text: "ثبت نام",
-                      style: textTheme.headline4,
-                    )),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    notHaveAccount,
+                    style: textTheme.bodyText2,
+                  ),
+                  SizedBox(
+                    width: size.width / 23.777,
+                  ),
+                  TextButton(onPressed: (){
+                    //TODO
+                  }, child: Text(
+                    "ثبت نام",
+                    style: textTheme.bodyText2?.copyWith(color: primaryColor),
+                  )),
+                ],
               ),
               SizedBox(
                 height: size.height / 20.577,

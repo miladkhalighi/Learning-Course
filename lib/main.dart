@@ -55,10 +55,6 @@ class MyApp extends StatelessWidget {
               fontSize: 14,
               color: secondaryTextColor,
             ),
-            headline4: TextStyle(
-              fontSize: 14,
-              color: primaryColor,
-            ),
             button: const TextStyle(
                 fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
           ),
@@ -68,7 +64,7 @@ class MyApp extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(1000)),
                   elevation: 16))),
-      home: LogInScreen(),
+      home: const LogInScreen(),
     );
   }
 }
