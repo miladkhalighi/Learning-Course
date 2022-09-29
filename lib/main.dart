@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:learning_course/constants/colors.dart';
 import 'package:learning_course/constants/strings.dart';
 import 'package:learning_course/bottom_navigation.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: backgroundColor,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: primaryColor,
+      systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarDividerColor: Colors.transparent,
+  ));
   runApp(const MyApp());
 }
 

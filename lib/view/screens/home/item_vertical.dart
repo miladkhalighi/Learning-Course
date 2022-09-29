@@ -21,7 +21,7 @@ class ItemVertical extends StatelessWidget {
       height: Get.height/ 7,
       decoration: itemDecoration,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 4),
+        padding: const EdgeInsets.fromLTRB(6, 6, 16, 6),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -65,7 +65,7 @@ class ItemVertical extends StatelessWidget {
             Expanded(
               flex: 4,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(25),
+                borderRadius: BorderRadius.circular(15),
                 child: Image(image: AssetImage(item.coverImage),fit: BoxFit.cover,),
               ),
             ),
