@@ -18,6 +18,7 @@ class BottomNavigationScreen extends StatelessWidget {
         body: PersistentTabView(
           context,
           screens: controller.screens,
+          controller: controller.bottomNavCtr,
           decoration: NavBarDecoration(
             colorBehindNavBar: backgroundColor,
             borderRadius: const BorderRadius.only(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:learning_course/constants/colors.dart';
 import 'package:learning_course/constants/strings.dart';
@@ -7,6 +8,13 @@ import 'package:learning_course/bottom_navigation.dart';
 import 'package:learning_course/view/screens/auth/signup_screen.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: backgroundColor,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: primaryColor,
+      systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarDividerColor: Colors.transparent,
+  ));
   runApp(const MyApp());
 }
 
@@ -48,10 +56,6 @@ class MyApp extends StatelessWidget {
               fontSize: 14,
               color: secondaryTextColor,
             ),
-            headline4: TextStyle(
-              fontSize: 14,
-              color: primaryColor,
-            ),
             button: const TextStyle(
                 fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
           ),
@@ -61,6 +65,9 @@ class MyApp extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(1000)),
                   elevation: 16))),
+
+      home: const LogInScreen(),
+
       home: SignUpScreen(),
     );
   }

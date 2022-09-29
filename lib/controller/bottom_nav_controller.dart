@@ -8,6 +8,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class BottomNavController extends GetxController{
   var itemIndex = 3.obs;
+  PersistentTabController bottomNavCtr = PersistentTabController();
 
   updateIndex(int index){
     itemIndex.value = index;
@@ -20,19 +21,16 @@ class BottomNavController extends GetxController{
         icon: const Icon(EvaIcons.personOutline),
         inactiveIcon: const Icon(EvaIcons.person),
         title: (profileName),
-        activeColorPrimary: primaryLightColor,
+        activeColorPrimary: primaryLightColor.withOpacity(0.6),
         activeColorSecondary: secondaryColor,
         inactiveColorPrimary: secondaryColor,
         textStyle: Get.textTheme.bodyText2,
-
-
-
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(EvaIcons.bookmarkOutline),
         inactiveIcon: const Icon(EvaIcons.bookmark),
         title: (favName),
-        activeColorPrimary: primaryLightColor,
+        activeColorPrimary: primaryLightColor.withOpacity(0.6),
         activeColorSecondary: secondaryColor,
         inactiveColorPrimary: secondaryColor,
         textStyle: Get.textTheme.bodyText2,
@@ -41,7 +39,7 @@ class BottomNavController extends GetxController{
         icon: const Icon(EvaIcons.bookOpenOutline),
         inactiveIcon: const Icon(EvaIcons.bookOpen),
         title: (searchName),
-        activeColorPrimary: primaryLightColor,
+        activeColorPrimary: primaryLightColor.withOpacity(0.6),
         activeColorSecondary: secondaryColor,
         inactiveColorPrimary: secondaryColor,
         textStyle: Get.textTheme.bodyText2,
@@ -50,7 +48,7 @@ class BottomNavController extends GetxController{
         icon: const Icon(EvaIcons.homeOutline),
         inactiveIcon: const Icon(EvaIcons.home),
         title: (homeName),
-        activeColorPrimary: primaryLightColor,
+        activeColorPrimary: primaryLightColor.withOpacity(0.6),
         activeColorSecondary: secondaryColor,
         inactiveColorPrimary: secondaryColor,
         textStyle: Get.textTheme.bodyText2,
@@ -66,5 +64,10 @@ class BottomNavController extends GetxController{
     const HomeScreen(),
   ];
 
+  @override
+  void onInit() {
+    bottomNavCtr.index = itemIndex.value;
+    super.onInit();
+  }
 
 }

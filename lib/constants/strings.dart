@@ -6,11 +6,12 @@ String searchName = "جستوجو";
 String favName = "نشان شده";
 String profileName = "کاربر";
 
-String logInScreenTitle = "ورود به حساب کاربری";
+String logInScreenTitle = "ورود به\n حساب کاربری";
 String logIn = "ورود";
-String emailHintText = "milad.kh4lighi@gmail.com";
+String emailHintText = "حساب کاربری را وارد کنید";
 String forgetPassword = "رمز عبور رو فراموش کردی ؟";
 String notHaveAccount = "حساب کاربری نداری ؟";
+String passwordHintText = "رمز ورود را وارد کنید";
 
 String signUpScreenTitle = "ایجاد حساب کاربری";
 String signUp = "ثبت نام";
