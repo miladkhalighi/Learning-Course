@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learning_course/constants/colors.dart';
 import 'package:learning_course/constants/strings.dart';
-import 'package:learning_course/bottom_navigation.dart';
 import 'package:learning_course/view/screens/auth/login_screen.dart';
+import 'package:learning_course/bottom_navigation.dart';
+import 'package:learning_course/view/screens/auth/signup_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(1000)),
                   elevation: 16))),
-      home: LogInScreen(),
+      home: SignUpScreen(),
     );
   }
 }

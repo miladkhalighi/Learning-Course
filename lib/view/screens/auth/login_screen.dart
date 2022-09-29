@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:learning_course/constants/colors.dart';
@@ -30,11 +29,8 @@ class _LogInScreenState extends State<LogInScreen> {
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(
-                    size.width / 2.06,
-                    size.height / 17,
-                    size.width / 13.375,
-                    size.height / 22.481),
+                padding: EdgeInsets.fromLTRB(size.width / 2.06,
+                    size.height / 17, size.width / 13.37, size.height / 22.48),
                 child: Text(
                   logInScreenTitle,
                   style: textTheme.headline1,
@@ -57,7 +53,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     filled: true,
                     fillColor: logInTextField,
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: size.height / 44.095),
+                        EdgeInsets.symmetric(horizontal: size.height / 44.09),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide.none),
@@ -86,8 +82,8 @@ class _LogInScreenState extends State<LogInScreen> {
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: logInTextField,
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal: size.height / 44.095),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: size.height / 44.09),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide.none,
@@ -118,17 +114,16 @@ class _LogInScreenState extends State<LogInScreen> {
                 ),
               ),
               SizedBox(
-                height: size.height / 15.143,
-                width: size.width / 1.145,
+                height: 58,
+                width: size.width / 1.14,
                 child: ElevatedButton(
                   onPressed: () {},
-                  style: ElevatedButton.styleFrom(elevation: 0),
                   child: Text(logIn),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    top: size.height / 38.583, bottom: size.height / 54.502),
+                    top: size.height / 38.58, bottom: size.height / 54.502),
                 child: RichText(
                     text: TextSpan(
                   text: forgetPassword,
@@ -138,11 +133,11 @@ class _LogInScreenState extends State<LogInScreen> {
               Divider(
                 thickness: 1,
                 color: divider,
-                indent: size.width / 13.811,
-                endIndent: size.width / 13.811,
+                indent: size.width / 13.81,
+                endIndent: size.width / 13.81,
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, size.height / 30.856, 0, 0),
+                padding: EdgeInsets.fromLTRB(0, size.height / 30.85, 0, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -152,18 +147,18 @@ class _LogInScreenState extends State<LogInScreen> {
                       style: textTheme.bodyText2,
                     )),
                     SizedBox(
-                      width: size.width / 23.777,
+                      width: size.width / 23.77,
                     ),
                     RichText(
                         text: TextSpan(
-                      text: "ثبت نام",
+                      text: signUp,
                       style: textTheme.headline4,
                     )),
                   ],
                 ),
               ),
               SizedBox(
-                height: size.height / 20.577,
+                height: size.height / 20.57,
               )
             ],
           ),
