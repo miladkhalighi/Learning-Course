@@ -42,7 +42,6 @@ flutter:
     - assets/images/
     - assets/icons/
 
-
   fonts:
      - family: IranSans
        fonts:
