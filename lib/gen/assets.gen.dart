@@ -37,6 +37,12 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/login.svg
   SvgGenImage get login => const SvgGenImage('assets/images/login.svg');
+
+
+
+  /// File path: assets/images/signup.svg
+  SvgGenImage get signup => const SvgGenImage('assets/images/signup.svg');
+
 }
 
 class Assets {
