@@ -32,132 +32,218 @@ class ItemDetailsScreen extends StatelessWidget {
               ),
             ),
             buildExpandablePanel(itemDetailsController),
+            toggleWidget(itemDetailsController),
           ],
         ),
       ),
     );
   }
 
-  ExpandablePanel buildExpandablePanel(ItemDetailsController itemDetailsController) {
-    return ExpandablePanel(
-            collapsed: Padding(
-              padding: EdgeInsets.all(bodyMargin),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: ItemIconAndTitle(
-                              icon: EvaIcons.personOutline,
-                              title: 'مدرسان',
-                              content: ' ساسان صفری'*5)),
-                      const SizedBox(width: 4,),
-                      Expanded(
-                          flex: 1,
-                          child: ItemIconAndTitle(
-                              icon: EvaIcons.starOutline,
-                              title: 'امتیاز',
-                              content: '4.8/5')),
-                    ],
-                  ),
-                  SizedBox(height: bodyMargin,),
-                  Row(
-                    children: const [
-                      Expanded(
-                          flex: 1,
-                          child: ItemIconAndTitle(
-                              icon: EvaIcons.barChart2Outline,
-                              title: 'سطح دوره',
-                              content: 'پیشرفته')),
-                      Expanded(
-                          flex: 1,
-                          child: ItemIconAndTitle(
-                              icon: EvaIcons.pricetagsOutline,
-                              title: 'قیمت',
-                              content: '100000 تومان')),
-                    ],
-                  ),
-                  const SizedBox(height: 16,),
-                  IconButton(
-                      onPressed: () {
-                        itemDetailsController.changeExpand();
-                      },
-                      icon: const Icon(EvaIcons.arrowIosDownwardOutline)),
-                ],
+  Widget toggleWidget(ItemDetailsController itemDetailsController) {
+    return Padding(
+            padding: EdgeInsets.all(bodyMargin),
+            child: Container(
+              width: Get.width / 2,
+              height: 34,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                color: primaryLightColor,
+              ),
+              child: Obx(
+                ()=> Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: InkWell(
+                        onTap: (){itemDetailsController.updateShowComments();},
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: itemDetailsController.showComments.value
+                                ? primaryColor
+                                : primaryLightColor,
+                          ),
+                          child: Center(
+                              child: Text(
+                                'توضیحات',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color:
+                                    itemDetailsController.showComments.value
+                                        ? Colors.white
+                                        : secondaryColor),
+                              )),
+                        ),
+                      )
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: InkWell(
+                        onTap: (){itemDetailsController.updateShowComments();},
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: itemDetailsController.showComments.value==true ?
+                            primaryLightColor :
+                            primaryColor,
+                          ),
+                          child: Center(
+                              child: Text(
+                                'نظرات کاربران',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: itemDetailsController.showComments.value
+                                        ? secondaryColor
+                                        : Colors.white),
+                              )),
+                        ),
+                      )
+                    )
+                  ],
+                ),
               ),
             ),
-            expanded: Padding(
-              padding: EdgeInsets.all(bodyMargin),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    children: const [
-                      Expanded(
-                          flex: 1,
-                          child: ItemIconAndTitle(
-                              icon: EvaIcons.barChart2Outline,
-                              title: 'سطح دوره',
-                              content: 'پیشرفته')),
-                      Expanded(
-                          flex: 1,
-                          child: ItemIconAndTitle(
-                              icon: EvaIcons.pricetagsOutline,
-                              title: 'قیمت',
-                              content: '100000 تومان')),
-                    ],
-                  ),
-                  SizedBox(height: bodyMargin,),
-                  Row(
-                    children: const [
-                      Expanded(
-                          flex: 1,
-                          child: ItemIconAndTitle(
-                              icon: EvaIcons.clockOutline,
-                              title: 'مدت زمان',
-                              content: '12:50:43')),
-                      Expanded(
-                          flex: 1,
-                          child: ItemIconAndTitle(
-                              icon: EvaIcons.starOutline,
-                              title: 'امتیاز',
-                              content: '4.8/5')),
-                    ],
-                  ),
-                  SizedBox(height: bodyMargin,),
-                  ItemIconAndTitle(
-                    icon: EvaIcons.personOutline,
-                    title: 'مدرسان',
-                    content: ' ساسان صفری'*5,
-                    contentMaxLine: 2,
-                  ),
-                  SizedBox(height: bodyMargin,),
-                  ItemIconAndTitle(
-                    icon: EvaIcons.fileTextOutline,
-                    title: 'پیش نیازها',
-                    content: 'پیش '*4,
-                    contentMaxLine: 2,
-                  ),
-                  SizedBox(height: bodyMargin,),
-                  ItemIconAndTitle(
-                    icon: EvaIcons.messageCircleOutline,
-                    title: 'شعار دوره',
-                    content: ' خیلی خوبیم ما خیلی خوبیم ما'*5,
-                    contentMaxLine: 2,
-                  ),
-                  const SizedBox(height: 16,),
-                  IconButton(
-                      onPressed: () {
-                        itemDetailsController.changeExpand();
-                      },
-                      icon: const Icon(EvaIcons.arrowIosUpwardOutline)),
-                ],
-              ),
-            ),
-            controller: itemDetailsController.expandableController,
           );
+  }
+
+  ExpandablePanel buildExpandablePanel(
+      ItemDetailsController itemDetailsController) {
+    return ExpandablePanel(
+      collapsed: Padding(
+        padding: EdgeInsets.all(bodyMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: ItemIconAndTitle(
+                        icon: EvaIcons.personOutline,
+                        title: 'مدرسان',
+                        content: ' ساسان صفری' * 5)),
+                const SizedBox(
+                  width: 4,
+                ),
+                Expanded(
+                    flex: 1,
+                    child: ItemIconAndTitle(
+                        icon: EvaIcons.starOutline,
+                        title: 'امتیاز',
+                        content: '4.8/5')),
+              ],
+            ),
+            SizedBox(
+              height: bodyMargin,
+            ),
+            Row(
+              children: const [
+                Expanded(
+                    flex: 1,
+                    child: ItemIconAndTitle(
+                        icon: EvaIcons.barChart2Outline,
+                        title: 'سطح دوره',
+                        content: 'پیشرفته')),
+                Expanded(
+                    flex: 1,
+                    child: ItemIconAndTitle(
+                        icon: EvaIcons.pricetagsOutline,
+                        title: 'قیمت',
+                        content: '100000 تومان')),
+              ],
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            IconButton(
+                onPressed: () {
+                  itemDetailsController.changeExpand();
+                },
+                icon: const Icon(EvaIcons.arrowIosDownwardOutline)),
+          ],
+        ),
+      ),
+      expanded: Padding(
+        padding: EdgeInsets.all(bodyMargin),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: const [
+                Expanded(
+                    flex: 1,
+                    child: ItemIconAndTitle(
+                        icon: EvaIcons.barChart2Outline,
+                        title: 'سطح دوره',
+                        content: 'پیشرفته')),
+                Expanded(
+                    flex: 1,
+                    child: ItemIconAndTitle(
+                        icon: EvaIcons.pricetagsOutline,
+                        title: 'قیمت',
+                        content: '100000 تومان')),
+              ],
+            ),
+            SizedBox(
+              height: bodyMargin,
+            ),
+            Row(
+              children: const [
+                Expanded(
+                    flex: 1,
+                    child: ItemIconAndTitle(
+                        icon: EvaIcons.clockOutline,
+                        title: 'مدت زمان',
+                        content: '12:50:43')),
+                Expanded(
+                    flex: 1,
+                    child: ItemIconAndTitle(
+                        icon: EvaIcons.starOutline,
+                        title: 'امتیاز',
+                        content: '4.8/5')),
+              ],
+            ),
+            SizedBox(
+              height: bodyMargin,
+            ),
+            ItemIconAndTitle(
+              icon: EvaIcons.personOutline,
+              title: 'مدرسان',
+              content: ' ساسان صفری' * 5,
+              contentMaxLine: 2,
+            ),
+            SizedBox(
+              height: bodyMargin,
+            ),
+            ItemIconAndTitle(
+              icon: EvaIcons.fileTextOutline,
+              title: 'پیش نیازها',
+              content: 'پیش ' * 4,
+              contentMaxLine: 2,
+            ),
+            SizedBox(
+              height: bodyMargin,
+            ),
+            ItemIconAndTitle(
+              icon: EvaIcons.messageCircleOutline,
+              title: 'شعار دوره',
+              content: ' خیلی خوبیم ما خیلی خوبیم ما' * 5,
+              contentMaxLine: 2,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            IconButton(
+                onPressed: () {
+                  itemDetailsController.changeExpand();
+                },
+                icon: const Icon(EvaIcons.arrowIosUpwardOutline)),
+          ],
+        ),
+      ),
+      controller: itemDetailsController.expandableController,
+    );
   }
 
   SizedBox header(PageController pageController) {
@@ -234,7 +320,7 @@ class ItemIconAndTitle extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.content,
-    this.contentMaxLine =1,
+    this.contentMaxLine = 1,
   }) : super(key: key);
 
   @override
@@ -251,8 +337,8 @@ class ItemIconAndTitle extends StatelessWidget {
         ),
         Text(
           title,
-          style:
-              Get.textTheme.bodyText2?.copyWith(color: primaryColor,fontSize: 13),
+          style: Get.textTheme.bodyText2
+              ?.copyWith(color: primaryColor, fontSize: 13),
         ),
         const SizedBox(
           width: 16,
@@ -262,11 +348,10 @@ class ItemIconAndTitle extends StatelessWidget {
             content,
             overflow: TextOverflow.ellipsis,
             maxLines: contentMaxLine,
-            style:
-                Get.textTheme.bodyText2?.copyWith(color: const Color(0xFF5E5E5E),fontSize: 12),
+            style: Get.textTheme.bodyText2
+                ?.copyWith(color: const Color(0xFF5E5E5E), fontSize: 12),
           ),
         ),
-
       ],
     );
   }
