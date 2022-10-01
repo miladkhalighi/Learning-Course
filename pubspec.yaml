@@ -17,6 +17,7 @@ dependencies:
   eva_icons_flutter: ^3.1.0
   persistent_bottom_nav_bar: ^5.0.2
   smooth_page_indicator: ^1.0.0+2  #dot indicator
+  expandable: ^5.0.1
 
 
 
