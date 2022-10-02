@@ -24,45 +24,48 @@ class ItemDetailsScreen extends StatelessWidget {
     var item = itemDetails;
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            header(pageController),
-            Padding(
-              padding: EdgeInsets.all(bodyMargin),
-              child: Text(
-                item.title,
-                style: Get.textTheme.headline3,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-            ),
-            buildExpandablePanel(itemDetailsController),
-            Center(
-              child: Obx(
-                  ()=> IconButton(
-                    onPressed: () {
-                      itemDetailsController.changeExpand();
-                    },
-                    icon: Icon(
-                      !itemDetailsController.expand.value
-                          ? EvaIcons.arrowIosDownwardOutline
-                          : EvaIcons.arrowIosUpwardOutline,
-                      color: secondaryColor,
-                    )
+      body: Stack(
+        children: [
+          SizedBox(
+            height: Get.height,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  header(pageController),
+                  Padding(
+                    padding: EdgeInsets.all(bodyMargin),
+                    child: Text(
+                      item.title,
+                      style: Get.textTheme.headline3,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
                   ),
-              ),
-            ),
-            SizedBox(
-              height: bodyMargin,
-            ),
-            toggleDescriptionOrComments(itemDetailsController),
-            Padding(
-              padding: EdgeInsets.all(bodyMargin),
-              child: Obx(
-                () => itemDetailsController.showComments.value
-                    ? Column(
+                  buildExpandablePanel(itemDetailsController),
+                  Center(
+                    child: Obx(
+                          () => IconButton(
+                          onPressed: () {
+                            itemDetailsController.changeExpand();
+                          },
+                          icon: Icon(
+                            !itemDetailsController.expand.value
+                                ? EvaIcons.arrowIosDownwardOutline
+                                : EvaIcons.arrowIosUpwardOutline,
+                            color: secondaryColor,
+                          )),
+                    ),
+                  ),
+                  SizedBox(
+                    height: bodyMargin,
+                  ),
+                  toggleDescriptionOrComments(itemDetailsController),
+                  Padding(
+                    padding: EdgeInsets.all(bodyMargin),
+                    child: Obx(
+                          () => itemDetailsController.showComments.value
+                          ? Column(
                         children: [
                           Row(
                             children: [
@@ -87,7 +90,9 @@ class ItemDetailsScreen extends StatelessWidget {
                                   child: Text(
                                       'ایجاد دیدگاه | امتیاز دهی | ورود',
                                       style: TextStyle(
-                                          fontSize: 12, color: primaryColor,fontWeight: FontWeight.normal)))
+                                          fontSize: 12,
+                                          color: primaryColor,
+                                          fontWeight: FontWeight.normal)))
                             ],
                           ),
                           const SizedBox(
@@ -111,10 +116,10 @@ class ItemDetailsScreen extends StatelessWidget {
                                 direction: Axis.horizontal,
                                 allowHalfRating: false,
                                 itemCount: 5,
-                                itemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 2.0),
+                                itemPadding: const EdgeInsets.symmetric(
+                                    horizontal: 2.0),
                                 unratedColor:
-                                    secondaryTextColor.withOpacity(0.6),
+                                secondaryTextColor.withOpacity(0.6),
                                 itemBuilder: (context, _) => const Icon(
                                   EvaIcons.star,
                                   color: Colors.amber,
@@ -125,9 +130,6 @@ class ItemDetailsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 16,
-                          ),
                           //comments
                           commentsListView(itemDetailsController),
                           SizedBox(
@@ -137,21 +139,41 @@ class ItemDetailsScreen extends StatelessWidget {
                           showAllCommentsToggle(itemDetailsController)
                         ],
                       )
-                    : ExpandableText(
+                          : ExpandableText(
                         item.description,
                         expandText: "نمایش کامل",
                         collapseText: "نمایش کمتر",
                         maxLines: 3,
                         linkColor: primaryColor,
                       ),
+                    ),
+                  ),
+                  SizedBox(height: bodyMargin * 6,)
+                ],
               ),
             ),
-            SizedBox(
-              height: bodyMargin * 2,
+          ),
+          //bottom buttons
+          Positioned(
+            bottom: bodyMargin,
+            right: bodyMargin,
+            left: bodyMargin,
+            child: Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                      height: 60,
+                      child: ElevatedButton(onPressed: (){}, child: const Text('خرید دوره'))),
+                ),
+                SizedBox(width: bodyMargin,),
+                SizedBox(
+                    height: 60,
+                    child: ElevatedButton(onPressed: (){}, child: const Icon(EvaIcons.bookOpenOutline,size: 32,)))
+              ],
             ),
-          ],
-        ),
-      ),
+          )
+        ],
+      )
     );
   }
 
@@ -185,14 +207,18 @@ class ItemDetailsScreen extends StatelessWidget {
           itemDetailsController.updateShowAllComments();
         },
         child: Container(
-          padding: const EdgeInsets.all(4), // i use container and padding to consist bigger space for tap
+          padding: const EdgeInsets.all(4),
+          // i use container and padding to consist bigger space for tap
           child: Column(
             children: [
               Text(
                 !itemDetailsController.showAllComments.value
                     ? 'نمایش بیشتر دیدگاه ها'
                     : 'نمایش کمتر',
-                style: TextStyle(fontSize: 11, color: primaryColor,fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 12,
+                    color: primaryColor,
+                ),
               ),
               Icon(
                 itemDetailsController.showAllComments.value
@@ -207,7 +233,8 @@ class ItemDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget toggleDescriptionOrComments(ItemDetailsController itemDetailsController) {
+  Widget toggleDescriptionOrComments(
+      ItemDetailsController itemDetailsController) {
     return Padding(
       padding: EdgeInsets.all(bodyMargin),
       child: Container(
@@ -232,7 +259,7 @@ class ItemDetailsScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(25),
                         color: itemDetailsController.showComments.value
                             ? primaryLightColor
-                            : primaryColor,
+                            : secondaryColor,
                       ),
                       child: Center(
                           child: Text(
@@ -255,7 +282,7 @@ class ItemDetailsScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         color: itemDetailsController.showComments.value
-                            ? primaryColor
+                            ? secondaryColor
                             : primaryLightColor,
                       ),
                       child: Center(
