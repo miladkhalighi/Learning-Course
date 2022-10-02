@@ -1,6 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:expandable/expandable.dart';
+import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:learning_course/constants/constants.dart';
 import 'package:learning_course/controller/item_details_controller.dart';
@@ -33,6 +35,86 @@ class ItemDetailsScreen extends StatelessWidget {
             ),
             buildExpandablePanel(itemDetailsController),
             toggleWidget(itemDetailsController),
+            Obx(
+              () => itemDetailsController.showComments.value
+                  ? Padding(
+                      padding: EdgeInsets.all(bodyMargin),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'تعداد دیدگاه ها',
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    color: const Color(0xFF5E5E5E)),
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text('205',
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: primaryTextColor)),
+                              const Spacer(),
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                      'ایجاد دیدگاه | امتیاز دهی | ورود',
+                                      style: TextStyle(
+                                          fontSize: 11, color: primaryColor)))
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          //rating bar
+                          Row(
+                            children: [
+                              Text(
+                                'امتاز شما',
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    color: const Color(0xFF5E5E5E)),
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              RatingBar.builder(
+                                initialRating: 1,
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: false,
+                                itemCount: 5,
+                                itemPadding:
+                                    const EdgeInsets.symmetric(horizontal: 2.0),
+                                unratedColor:
+                                    secondaryTextColor.withOpacity(0.6),
+                                itemBuilder: (context, _) => const Icon(
+                                  EvaIcons.star,
+                                  color: Colors.amber,
+                                ),
+                                onRatingUpdate: (double value) {},
+                                itemSize: 18,
+                                ignoreGestures: true,
+                              ),
+                            ],
+                          ),
+                          //comments
+                        ],
+                      ),
+                    )
+                  : ExpandableText(
+                      "فلاتر یکی از فریم‌ورک‌های بسیار جذابی است که می‌توانید از آن برای توسعه اپلیکیشن‌های مختلف استفاده کنید. این فریم‌ورک قابلیت‌های مختلفی را به شما ارائه می‌دهد که بدون شک آشنایی با این قابلیت‌ها می‌تواند برای توسعه‌دهندگان اپلیکیشن بسیار مفید و  همین شرکت نیز پشتیبانی می‌شود. به همین علت نیز شما می‌توانید نسبت به پشتیبانی از ویژگی‌های جدید در این فریم‌ورک کاملا مطمئن باشید و با خیالی راحت از آن استفاده کنید. صفر تا",
+                      expandText: "نمایش کامل",
+                      collapseText: "نمایش نیمه",
+                      maxLines: 3,
+                    ),
+            ),
+            const SizedBox(
+              height: 32,
+            ),
           ],
         ),
       ),
@@ -41,70 +123,71 @@ class ItemDetailsScreen extends StatelessWidget {
 
   Widget toggleWidget(ItemDetailsController itemDetailsController) {
     return Padding(
-            padding: EdgeInsets.all(bodyMargin),
-            child: Container(
-              width: Get.width / 2,
-              height: 34,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                color: primaryLightColor,
-              ),
-              child: Obx(
-                ()=> Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: InkWell(
-                        onTap: (){itemDetailsController.updateShowComments();},
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
+      padding: EdgeInsets.all(bodyMargin),
+      child: Container(
+        width: Get.width / 2,
+        height: 34,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: primaryLightColor,
+        ),
+        child: Obx(
+          () => Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                  flex: 1,
+                  child: InkWell(
+                    onTap: () {
+                      itemDetailsController.updateShowComments();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: itemDetailsController.showComments.value
+                            ? primaryLightColor
+                            : primaryColor,
+                      ),
+                      child: Center(
+                          child: Text(
+                        'توضیحات',
+                        style: TextStyle(
+                            fontSize: 12,
                             color: itemDetailsController.showComments.value
-                                ? primaryColor
-                                : primaryLightColor,
-                          ),
-                          child: Center(
-                              child: Text(
-                                'توضیحات',
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color:
-                                    itemDetailsController.showComments.value
-                                        ? Colors.white
-                                        : secondaryColor),
-                              )),
-                        ),
-                      )
+                                ? secondaryColor
+                                : Colors.white),
+                      )),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: InkWell(
-                        onTap: (){itemDetailsController.updateShowComments();},
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: itemDetailsController.showComments.value==true ?
-                            primaryLightColor :
-                            primaryColor,
-                          ),
-                          child: Center(
-                              child: Text(
-                                'نظرات کاربران',
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: itemDetailsController.showComments.value
-                                        ? secondaryColor
-                                        : Colors.white),
-                              )),
-                        ),
-                      )
-                    )
-                  ],
-                ),
-              ),
-            ),
-          );
+                  )),
+              Expanded(
+                  flex: 1,
+                  child: InkWell(
+                    onTap: () {
+                      itemDetailsController.updateShowComments();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: itemDetailsController.showComments.value
+                            ? primaryColor
+                            : primaryLightColor,
+                      ),
+                      child: Center(
+                          child: Text(
+                        'نظرات کاربران',
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: itemDetailsController.showComments.value
+                                ? Colors.white
+                                : secondaryColor),
+                      )),
+                    ),
+                  ))
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   ExpandablePanel buildExpandablePanel(
