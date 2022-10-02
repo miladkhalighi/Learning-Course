@@ -6,6 +6,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:learning_course/constants/constants.dart';
 import 'package:learning_course/controller/item_details_controller.dart';
+import 'package:learning_course/model/comment_model.dart';
+import 'package:learning_course/view/screens/item_details/comment.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../constants/colors.dart';
@@ -35,19 +37,19 @@ class ItemDetailsScreen extends StatelessWidget {
             ),
             buildExpandablePanel(itemDetailsController),
             toggleWidget(itemDetailsController),
-            Obx(
-              () => itemDetailsController.showComments.value
-                  ? Padding(
-                      padding: EdgeInsets.all(bodyMargin),
-                      child: Column(
+            Padding(
+              padding: EdgeInsets.all(bodyMargin),
+              child: Obx(
+                () => itemDetailsController.showComments.value
+                    ? Column(
                         children: [
                           Row(
                             children: [
-                              Text(
+                              const Text(
                                 'تعداد دیدگاه ها',
                                 style: TextStyle(
                                     fontSize: 11,
-                                    color: const Color(0xFF5E5E5E)),
+                                    color: Color(0xFF5E5E5E)),
                               ),
                               const SizedBox(
                                 width: 4,
@@ -72,11 +74,11 @@ class ItemDetailsScreen extends StatelessWidget {
                           //rating bar
                           Row(
                             children: [
-                              Text(
+                              const Text(
                                 'امتاز شما',
                                 style: TextStyle(
                                     fontSize: 11,
-                                    color: const Color(0xFF5E5E5E)),
+                                    color: Color(0xFF5E5E5E)),
                               ),
                               const SizedBox(
                                 width: 16,
@@ -101,16 +103,23 @@ class ItemDetailsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
+                          const SizedBox(
+                            height: 16,
+                          ),
                           //comments
+                          commentsListView(itemDetailsController),
+                          SizedBox(height: bodyMargin,),
+                          //show all comments
+                          showAllCommentsToggle(itemDetailsController)
                         ],
+                      )
+                    : ExpandableText(
+                        "فلاتر یکی از فریم‌ورک‌های بسیار جذابی است که می‌توانید از آن برای توسعه اپلیکیشن‌های مختلف استفاده کنید. این فریم‌ورک قابلیت‌های مختلفی را به شما ارائه می‌دهد که بدون شک آشنایی با این قابلیت‌ها می‌تواند برای توسعه‌دهندگان اپلیکیشن بسیار مفید و  همین شرکت نیز پشتیبانی می‌شود. به همین علت نیز شما می‌توانید نسبت به پشتیبانی از ویژگی‌های جدید در این فریم‌ورک کاملا مطمئن باشید و با خیالی راحت از آن استفاده کنید. صفر تا",
+                        expandText: "نمایش کامل",
+                        collapseText: "نمایش نیمه",
+                        maxLines: 3,
                       ),
-                    )
-                  : ExpandableText(
-                      "فلاتر یکی از فریم‌ورک‌های بسیار جذابی است که می‌توانید از آن برای توسعه اپلیکیشن‌های مختلف استفاده کنید. این فریم‌ورک قابلیت‌های مختلفی را به شما ارائه می‌دهد که بدون شک آشنایی با این قابلیت‌ها می‌تواند برای توسعه‌دهندگان اپلیکیشن بسیار مفید و  همین شرکت نیز پشتیبانی می‌شود. به همین علت نیز شما می‌توانید نسبت به پشتیبانی از ویژگی‌های جدید در این فریم‌ورک کاملا مطمئن باشید و با خیالی راحت از آن استفاده کنید. صفر تا",
-                      expandText: "نمایش کامل",
-                      collapseText: "نمایش نیمه",
-                      maxLines: 3,
-                    ),
+              ),
             ),
             const SizedBox(
               height: 32,
@@ -119,6 +128,41 @@ class ItemDetailsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Obx commentsListView(ItemDetailsController itemDetailsController) {
+    return Obx(
+                            ()=> ListView.builder(itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Comment(
+                                name: fakeComments[index].name,
+                                comment: fakeComments[index].comment,
+                                dateTime: fakeComments[index].dateTime,
+                              ),
+                            );
+                          },
+                            itemCount: itemDetailsController.commentsLengthToggle(),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                          ),
+                        );
+  }
+
+  Obx showAllCommentsToggle(ItemDetailsController itemDetailsController) {
+    return Obx(
+                          ()=> InkWell(
+                            splashColor: primaryLightColor,
+                            highlightColor: primaryColor.withOpacity(0.2),
+                            onTap: (){itemDetailsController.updateShowAllComments();},
+                            child: Column(
+                              children: [
+                                Text(!itemDetailsController.showAllComments.value ? 'نمایش بیشتر دیدگاه ها' : 'نمایش کمتر',style: TextStyle(fontSize: 12,color: primaryColor),),
+                                Icon(itemDetailsController.showAllComments.value ? EvaIcons.arrowIosUpward : EvaIcons.arrowIosDownward,color: primaryColor,)
+                              ],
+                            ),
+                          ),
+                        );
   }
 
   Widget toggleWidget(ItemDetailsController itemDetailsController) {
