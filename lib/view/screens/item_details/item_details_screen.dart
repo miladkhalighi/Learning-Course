@@ -7,10 +7,12 @@ import 'package:get/get.dart';
 import 'package:learning_course/constants/constants.dart';
 import 'package:learning_course/controller/item_details_controller.dart';
 import 'package:learning_course/model/comment_model.dart';
+import 'package:learning_course/model/item_details_model.dart';
 import 'package:learning_course/view/screens/item_details/comment.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../constants/colors.dart';
+import 'item_icon_and_title.dart';
 
 class ItemDetailsScreen extends StatelessWidget {
   const ItemDetailsScreen({Key? key}) : super(key: key);
@@ -19,6 +21,7 @@ class ItemDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var pageController = PageController();
     var itemDetailsController = Get.put(ItemDetailsController());
+    var item = itemDetails;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -29,14 +32,32 @@ class ItemDetailsScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(bodyMargin),
               child: Text(
-                'صفر تا صد فلاتر در یک روز',
+                item.title,
                 style: Get.textTheme.headline3,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
             ),
             buildExpandablePanel(itemDetailsController),
-            toggleWidget(itemDetailsController),
+            Center(
+              child: Obx(
+                  ()=> IconButton(
+                    onPressed: () {
+                      itemDetailsController.changeExpand();
+                    },
+                    icon: Icon(
+                      !itemDetailsController.expand.value
+                          ? EvaIcons.arrowIosDownwardOutline
+                          : EvaIcons.arrowIosUpwardOutline,
+                      color: secondaryColor,
+                    )
+                  ),
+              ),
+            ),
+            SizedBox(
+              height: bodyMargin,
+            ),
+            toggleDescriptionOrComments(itemDetailsController),
             Padding(
               padding: EdgeInsets.all(bodyMargin),
               child: Obx(
@@ -48,24 +69,25 @@ class ItemDetailsScreen extends StatelessWidget {
                               const Text(
                                 'تعداد دیدگاه ها',
                                 style: TextStyle(
-                                    fontSize: 11,
-                                    color: Color(0xFF5E5E5E)),
+                                    fontSize: 11, color: Color(0xFF5E5E5E)),
                               ),
                               const SizedBox(
                                 width: 4,
                               ),
-                              Text('205',
+                              Text(fakeComments.length.toString(),
                                   style: TextStyle(
-                                      fontSize: 10,
+                                      fontSize: 11,
                                       fontWeight: FontWeight.bold,
-                                      color: primaryTextColor)),
+                                      color: secondaryColor)),
                               const Spacer(),
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    //TODO create bottom sheet
+                                  },
                                   child: Text(
                                       'ایجاد دیدگاه | امتیاز دهی | ورود',
                                       style: TextStyle(
-                                          fontSize: 11, color: primaryColor)))
+                                          fontSize: 12, color: primaryColor,fontWeight: FontWeight.normal)))
                             ],
                           ),
                           const SizedBox(
@@ -77,12 +99,12 @@ class ItemDetailsScreen extends StatelessWidget {
                               const Text(
                                 'امتاز شما',
                                 style: TextStyle(
-                                    fontSize: 11,
-                                    color: Color(0xFF5E5E5E)),
+                                    fontSize: 11, color: Color(0xFF5E5E5E)),
                               ),
                               const SizedBox(
                                 width: 16,
                               ),
+                              //TODO replace dynamic user rating with static initalRating
                               RatingBar.builder(
                                 initialRating: 1,
                                 minRating: 1,
@@ -108,21 +130,24 @@ class ItemDetailsScreen extends StatelessWidget {
                           ),
                           //comments
                           commentsListView(itemDetailsController),
-                          SizedBox(height: bodyMargin,),
+                          SizedBox(
+                            height: bodyMargin,
+                          ),
                           //show all comments
                           showAllCommentsToggle(itemDetailsController)
                         ],
                       )
                     : ExpandableText(
-                        "فلاتر یکی از فریم‌ورک‌های بسیار جذابی است که می‌توانید از آن برای توسعه اپلیکیشن‌های مختلف استفاده کنید. این فریم‌ورک قابلیت‌های مختلفی را به شما ارائه می‌دهد که بدون شک آشنایی با این قابلیت‌ها می‌تواند برای توسعه‌دهندگان اپلیکیشن بسیار مفید و  همین شرکت نیز پشتیبانی می‌شود. به همین علت نیز شما می‌توانید نسبت به پشتیبانی از ویژگی‌های جدید در این فریم‌ورک کاملا مطمئن باشید و با خیالی راحت از آن استفاده کنید. صفر تا",
+                        item.description,
                         expandText: "نمایش کامل",
-                        collapseText: "نمایش نیمه",
+                        collapseText: "نمایش کمتر",
                         maxLines: 3,
+                        linkColor: primaryColor,
                       ),
               ),
             ),
-            const SizedBox(
-              height: 32,
+            SizedBox(
+              height: bodyMargin * 2,
             ),
           ],
         ),
@@ -131,46 +156,63 @@ class ItemDetailsScreen extends StatelessWidget {
   }
 
   Obx commentsListView(ItemDetailsController itemDetailsController) {
+    var item = itemDetails;
     return Obx(
-                            ()=> ListView.builder(itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 6),
-                              child: Comment(
-                                name: fakeComments[index].name,
-                                comment: fakeComments[index].comment,
-                                dateTime: fakeComments[index].dateTime,
-                              ),
-                            );
-                          },
-                            itemCount: itemDetailsController.commentsLengthToggle(),
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                          ),
-                        );
+      () => ListView.builder(
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: Comment(
+              name: item.comments[index].name,
+              comment: item.comments[index].comment,
+              dateTime: item.comments[index].dateTime,
+            ),
+          );
+        },
+        itemCount: itemDetailsController.commentsLengthToggle(),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+      ),
+    );
   }
 
   Obx showAllCommentsToggle(ItemDetailsController itemDetailsController) {
     return Obx(
-                          ()=> InkWell(
-                            splashColor: primaryLightColor,
-                            highlightColor: primaryColor.withOpacity(0.2),
-                            onTap: (){itemDetailsController.updateShowAllComments();},
-                            child: Column(
-                              children: [
-                                Text(!itemDetailsController.showAllComments.value ? 'نمایش بیشتر دیدگاه ها' : 'نمایش کمتر',style: TextStyle(fontSize: 12,color: primaryColor),),
-                                Icon(itemDetailsController.showAllComments.value ? EvaIcons.arrowIosUpward : EvaIcons.arrowIosDownward,color: primaryColor,)
-                              ],
-                            ),
-                          ),
-                        );
+      () => InkWell(
+        splashColor: primaryLightColor,
+        highlightColor: primaryColor.withOpacity(0.2),
+        onTap: () {
+          itemDetailsController.updateShowAllComments();
+        },
+        child: Container(
+          padding: const EdgeInsets.all(4), // i use container and padding to consist bigger space for tap
+          child: Column(
+            children: [
+              Text(
+                !itemDetailsController.showAllComments.value
+                    ? 'نمایش بیشتر دیدگاه ها'
+                    : 'نمایش کمتر',
+                style: TextStyle(fontSize: 11, color: primaryColor,fontWeight: FontWeight.bold),
+              ),
+              Icon(
+                itemDetailsController.showAllComments.value
+                    ? EvaIcons.arrowIosUpward
+                    : EvaIcons.arrowIosDownward,
+                color: primaryColor,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
-  Widget toggleWidget(ItemDetailsController itemDetailsController) {
+  Widget toggleDescriptionOrComments(ItemDetailsController itemDetailsController) {
     return Padding(
       padding: EdgeInsets.all(bodyMargin),
       child: Container(
         width: Get.width / 2,
-        height: 34,
+        height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           color: primaryLightColor,
@@ -218,7 +260,7 @@ class ItemDetailsScreen extends StatelessWidget {
                       ),
                       child: Center(
                           child: Text(
-                        'نظرات کاربران',
+                        'دیدگاه کاربران',
                         style: TextStyle(
                             fontSize: 12,
                             color: itemDetailsController.showComments.value
@@ -236,6 +278,7 @@ class ItemDetailsScreen extends StatelessWidget {
 
   ExpandablePanel buildExpandablePanel(
       ItemDetailsController itemDetailsController) {
+    var item = itemDetails;
     return ExpandablePanel(
       collapsed: Padding(
         padding: EdgeInsets.all(bodyMargin),
@@ -249,7 +292,7 @@ class ItemDetailsScreen extends StatelessWidget {
                     child: ItemIconAndTitle(
                         icon: EvaIcons.personOutline,
                         title: 'مدرسان',
-                        content: ' ساسان صفری' * 5)),
+                        content: item.authors.join(' , '))),
                 const SizedBox(
                   width: 4,
                 ),
@@ -258,36 +301,28 @@ class ItemDetailsScreen extends StatelessWidget {
                     child: ItemIconAndTitle(
                         icon: EvaIcons.starOutline,
                         title: 'امتیاز',
-                        content: '4.8/5')),
+                        content: '${item.rate}/5')),
               ],
             ),
             SizedBox(
               height: bodyMargin,
             ),
             Row(
-              children: const [
+              children: [
                 Expanded(
                     flex: 1,
                     child: ItemIconAndTitle(
                         icon: EvaIcons.barChart2Outline,
                         title: 'سطح دوره',
-                        content: 'پیشرفته')),
+                        content: item.level)),
                 Expanded(
                     flex: 1,
                     child: ItemIconAndTitle(
                         icon: EvaIcons.pricetagsOutline,
                         title: 'قیمت',
-                        content: '100000 تومان')),
+                        content: '${item.price} تومان')),
               ],
             ),
-            const SizedBox(
-              height: 16,
-            ),
-            IconButton(
-                onPressed: () {
-                  itemDetailsController.changeExpand();
-                },
-                icon: const Icon(EvaIcons.arrowIosDownwardOutline)),
           ],
         ),
       ),
@@ -297,38 +332,38 @@ class ItemDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Row(
-              children: const [
+              children: [
                 Expanded(
                     flex: 1,
                     child: ItemIconAndTitle(
                         icon: EvaIcons.barChart2Outline,
                         title: 'سطح دوره',
-                        content: 'پیشرفته')),
+                        content: item.level)),
                 Expanded(
                     flex: 1,
                     child: ItemIconAndTitle(
                         icon: EvaIcons.pricetagsOutline,
                         title: 'قیمت',
-                        content: '100000 تومان')),
+                        content: '${item.price} تومان')),
               ],
             ),
             SizedBox(
               height: bodyMargin,
             ),
             Row(
-              children: const [
+              children: [
                 Expanded(
                     flex: 1,
                     child: ItemIconAndTitle(
                         icon: EvaIcons.clockOutline,
                         title: 'مدت زمان',
-                        content: '12:50:43')),
+                        content: item.time)),
                 Expanded(
                     flex: 1,
                     child: ItemIconAndTitle(
                         icon: EvaIcons.starOutline,
                         title: 'امتیاز',
-                        content: '4.8/5')),
+                        content: '${item.rate}/5')),
               ],
             ),
             SizedBox(
@@ -337,7 +372,7 @@ class ItemDetailsScreen extends StatelessWidget {
             ItemIconAndTitle(
               icon: EvaIcons.personOutline,
               title: 'مدرسان',
-              content: ' ساسان صفری' * 5,
+              content: item.authors.join(' , '),
               contentMaxLine: 2,
             ),
             SizedBox(
@@ -346,7 +381,7 @@ class ItemDetailsScreen extends StatelessWidget {
             ItemIconAndTitle(
               icon: EvaIcons.fileTextOutline,
               title: 'پیش نیازها',
-              content: 'پیش ' * 4,
+              content: item.dependencies.join(' , '),
               contentMaxLine: 2,
             ),
             SizedBox(
@@ -355,17 +390,9 @@ class ItemDetailsScreen extends StatelessWidget {
             ItemIconAndTitle(
               icon: EvaIcons.messageCircleOutline,
               title: 'شعار دوره',
-              content: ' خیلی خوبیم ما خیلی خوبیم ما' * 5,
+              content: item.shoar,
               contentMaxLine: 2,
             ),
-            const SizedBox(
-              height: 16,
-            ),
-            IconButton(
-                onPressed: () {
-                  itemDetailsController.changeExpand();
-                },
-                icon: const Icon(EvaIcons.arrowIosUpwardOutline)),
           ],
         ),
       ),
@@ -374,31 +401,27 @@ class ItemDetailsScreen extends StatelessWidget {
   }
 
   SizedBox header(PageController pageController) {
+    var item = itemDetails;
     return SizedBox(
       height: Get.height / 2.76,
       child: Stack(
         children: [
-          PageView(
+          PageView.builder(
             controller: pageController,
-            children: [
-              //Image(image: AssetImage(Assets.images.imgtest.path),fit: BoxFit.fill,),
-              Container(
-                color: Colors.green,
-              ),
-              Container(
-                color: Colors.blue,
-              ),
-              Container(
-                color: Colors.red,
-              ),
-            ],
+            itemBuilder: (BuildContext context, int index) {
+              return Image(
+                image: AssetImage(item.images[index]),
+                fit: BoxFit.cover,
+              );
+            },
+            itemCount: item.images.length,
           ),
           Positioned(
             bottom: bodyMargin,
             right: bodyMargin,
             child: SmoothPageIndicator(
               controller: pageController,
-              count: 3,
+              count: item.images.length,
               effect: ExpandingDotsEffect(
                   dotHeight: 12,
                   dotWidth: 12,
@@ -432,54 +455,6 @@ class ItemDetailsScreen extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class ItemIconAndTitle extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String content;
-  final int contentMaxLine;
-
-  const ItemIconAndTitle({
-    Key? key,
-    required this.icon,
-    required this.title,
-    required this.content,
-    this.contentMaxLine = 1,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          icon,
-          color: primaryColor,
-          size: 16,
-        ),
-        const SizedBox(
-          width: 4,
-        ),
-        Text(
-          title,
-          style: Get.textTheme.bodyText2
-              ?.copyWith(color: primaryColor, fontSize: 13),
-        ),
-        const SizedBox(
-          width: 16,
-        ),
-        Flexible(
-          child: Text(
-            content,
-            overflow: TextOverflow.ellipsis,
-            maxLines: contentMaxLine,
-            style: Get.textTheme.bodyText2
-                ?.copyWith(color: const Color(0xFF5E5E5E), fontSize: 12),
-          ),
-        ),
-      ],
     );
   }
 }
