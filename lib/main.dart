@@ -6,6 +6,7 @@ import 'package:learning_course/constants/strings.dart';
 import 'package:learning_course/view/screens/auth/login_screen.dart';
 import 'package:learning_course/bottom_navigation.dart';
 import 'package:learning_course/view/screens/auth/signup_screen.dart';
+import 'package:learning_course/view/screens/home/home_screen.dart';
 import 'package:learning_course/view/screens/item_details/item_details_screen.dart';
 
 void main() {

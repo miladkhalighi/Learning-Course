@@ -1,5 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:learning_course/tools/tools.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 import '../../../constants/colors.dart';
 import '../../../constants/constants.dart';
@@ -14,6 +16,9 @@ class Comment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Jalali jalali = Jalali.fromDateTime(dateTime);
+
+
     return Container(
       padding: const EdgeInsets.fromLTRB(8,8,8,16),
       decoration: BoxDecoration(
@@ -44,7 +49,7 @@ class Comment extends StatelessWidget {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    dateTime.toString(),
+                    Tools.shamsiFormat(jalali),
                     style: TextStyle(
                         color: secondaryTextColor,
                         fontSize: 10),
