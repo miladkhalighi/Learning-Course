@@ -24,156 +24,291 @@ class ItemDetailsScreen extends StatelessWidget {
     var item = itemDetails;
 
     return Scaffold(
-      body: Stack(
-        children: [
-          SizedBox(
-            height: Get.height,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  header(pageController),
-                  Padding(
-                    padding: EdgeInsets.all(bodyMargin),
-                    child: Text(
-                      item.title,
-                      style: Get.textTheme.headline3,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    ),
-                  ),
-                  buildExpandablePanel(itemDetailsController),
-                  Center(
-                    child: Obx(
-                          () => IconButton(
-                          onPressed: () {
-                            itemDetailsController.changeExpand();
-                          },
-                          icon: Icon(
-                            !itemDetailsController.expand.value
-                                ? EvaIcons.arrowIosDownwardOutline
-                                : EvaIcons.arrowIosUpwardOutline,
-                            color: secondaryColor,
-                          )),
-                    ),
-                  ),
-                  SizedBox(
-                    height: bodyMargin,
-                  ),
-                  toggleDescriptionOrComments(itemDetailsController),
-                  Padding(
-                    padding: EdgeInsets.all(bodyMargin),
-                    child: Obx(
-                          () => itemDetailsController.showComments.value
-                          ? Column(
-                        children: [
-                          Row(
-                            children: [
-                              const Text(
-                                'تعداد دیدگاه ها',
-                                style: TextStyle(
-                                    fontSize: 11, color: Color(0xFF5E5E5E)),
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(fakeComments.length.toString(),
-                                  style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.bold,
-                                      color: secondaryColor)),
-                              const Spacer(),
-                              TextButton(
-                                  onPressed: () {
-                                    //TODO create bottom sheet
-                                  },
-                                  child: Text(
-                                      'ایجاد دیدگاه | امتیاز دهی | ورود',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: primaryColor,
-                                          fontWeight: FontWeight.normal)))
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          //rating bar
-                          Row(
-                            children: [
-                              const Text(
-                                'امتاز شما',
-                                style: TextStyle(
-                                    fontSize: 11, color: Color(0xFF5E5E5E)),
-                              ),
-                              const SizedBox(
-                                width: 16,
-                              ),
-                              //TODO replace dynamic user rating with static initalRating
-                              RatingBar.builder(
-                                initialRating: 1,
-                                minRating: 1,
-                                direction: Axis.horizontal,
-                                allowHalfRating: false,
-                                itemCount: 5,
-                                itemPadding: const EdgeInsets.symmetric(
-                                    horizontal: 2.0),
-                                unratedColor:
-                                secondaryTextColor.withOpacity(0.6),
-                                itemBuilder: (context, _) => const Icon(
-                                  EvaIcons.star,
-                                  color: Colors.amber,
-                                ),
-                                onRatingUpdate: (double value) {},
-                                itemSize: 18,
-                                ignoreGestures: true,
-                              ),
-                            ],
-                          ),
-                          //comments
-                          commentsListView(itemDetailsController),
-                          SizedBox(
-                            height: bodyMargin,
-                          ),
-                          //show all comments
-                          showAllCommentsToggle(itemDetailsController)
-                        ],
-                      )
-                          : ExpandableText(
-                        item.description,
-                        expandText: "نمایش کامل",
-                        collapseText: "نمایش کمتر",
-                        maxLines: 3,
-                        linkColor: primaryColor,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: bodyMargin * 6,)
-                ],
-              ),
-            ),
-          ),
-          //bottom buttons
-          Positioned(
-            bottom: bodyMargin,
-            right: bodyMargin,
-            left: bodyMargin,
-            child: Row(
+        body: Stack(
+      children: [
+        SizedBox(
+          height: Get.height,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: SizedBox(
-                      height: 60,
-                      child: ElevatedButton(onPressed: (){}, child: const Text('خرید دوره'))),
+                header(pageController),
+                Padding(
+                  padding: EdgeInsets.all(bodyMargin),
+                  child: Text(
+                    item.title,
+                    style: Get.textTheme.headline3,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
                 ),
-                SizedBox(width: bodyMargin,),
+                buildExpandablePanel(itemDetailsController),
+                Center(
+                  child: Obx(
+                    () => IconButton(
+                        onPressed: () {
+                          itemDetailsController.changeExpand();
+                        },
+                        icon: Icon(
+                          !itemDetailsController.expand.value
+                              ? EvaIcons.arrowIosDownwardOutline
+                              : EvaIcons.arrowIosUpwardOutline,
+                          color: secondaryColor,
+                        )),
+                  ),
+                ),
                 SizedBox(
-                    height: 60,
-                    child: ElevatedButton(onPressed: (){}, child: const Icon(EvaIcons.bookOpenOutline,size: 32,)))
+                  height: bodyMargin,
+                ),
+                toggleDescriptionOrComments(itemDetailsController),
+                Padding(
+                  padding: EdgeInsets.all(bodyMargin),
+                  child: Obx(
+                    () => itemDetailsController.showComments.value
+                        ? Column(
+                            children: [
+                              Row(
+                                children: [
+                                  const Text(
+                                    'تعداد دیدگاه ها',
+                                    style: TextStyle(
+                                        fontSize: 11, color: Color(0xFF5E5E5E)),
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(fakeComments.length.toString(),
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                          color: secondaryColor)),
+                                  const Spacer(),
+                                  TextButton(
+                                      onPressed: () {
+                                        itemDetailsController.errorTextFeild.value = false;
+                                        bottomSheetCommentAndRate();
+                                      },
+                                      child: Text(
+                                          'ایجاد دیدگاه | امتیاز دهی | ورود',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: primaryColor,
+                                              fontWeight: FontWeight.normal)))
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              //rating bar
+                              Row(
+                                children: [
+                                  const Text(
+                                    'امتاز شما',
+                                    style: TextStyle(
+                                        fontSize: 11, color: Color(0xFF5E5E5E)),
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  //TODO replace dynamic user rating with static initalRating
+                                  RatingBar.builder(
+                                    initialRating: 1,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: false,
+                                    itemCount: 5,
+                                    itemPadding: const EdgeInsets.symmetric(
+                                        horizontal: 2.0),
+                                    unratedColor:
+                                        secondaryTextColor.withOpacity(0.6),
+                                    itemBuilder: (context, _) => const Icon(
+                                      EvaIcons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    onRatingUpdate: (double value) {},
+                                    itemSize: 18,
+                                    ignoreGestures: true,
+                                  ),
+                                ],
+                              ),
+                              //comments
+                              commentsListView(itemDetailsController),
+                              SizedBox(
+                                height: bodyMargin,
+                              ),
+                              //show all comments
+                              showAllCommentsToggle(itemDetailsController)
+                            ],
+                          )
+                        : ExpandableText(
+                            item.description,
+                            expandText: "نمایش کامل",
+                            collapseText: "نمایش کمتر",
+                            maxLines: 3,
+                            linkColor: primaryColor,
+                          ),
+                  ),
+                ),
+                SizedBox(
+                  height: bodyMargin * 6,
+                )
               ],
             ),
-          )
-        ],
-      )
+          ),
+        ),
+        //bottom buttons
+        Positioned(
+          bottom: bodyMargin,
+          right: bodyMargin,
+          left: bodyMargin,
+          child: Row(
+            children: [
+              Expanded(
+                child: SizedBox(
+                    height: 60,
+                    child: ElevatedButton(
+                        onPressed: () {}, child: const Text('خرید دوره'))),
+              ),
+              SizedBox(
+                width: bodyMargin,
+              ),
+              SizedBox(
+                  height: 60,
+                  child: ElevatedButton(
+                      onPressed: () {},
+                      child: const Icon(
+                        EvaIcons.bookOpenOutline,
+                        size: 32,
+                      )))
+            ],
+          ),
+        )
+      ],
+    ));
+  }
+
+  Future<dynamic> bottomSheetCommentAndRate() {
+    var controller = Get.put(ItemDetailsController());
+    return Get.bottomSheet(
+      SizedBox(
+        height: Get.height / 2,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(bodyMargin, bodyMargin*2, bodyMargin, bodyMargin),
+          child: Column(
+            children: [
+              RatingBar.builder(
+                initialRating: 1,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: false,
+                itemCount: 5,
+                itemPadding: const EdgeInsets.symmetric(
+                    horizontal: 2.0),
+                unratedColor:
+                secondaryTextColor.withOpacity(0.6),
+                itemBuilder: (context, _) => const Icon(
+                  EvaIcons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (double value) {},
+                itemSize: 32,
+              ),
+              SizedBox(height: bodyMargin*2,),
+              Row(
+                children: [
+                  Container(
+                    width: 32,
+                    height: 32,
+                    decoration: const BoxDecoration(
+                        color: Color(0xFFD9D9D9),
+                        shape: BoxShape.circle),
+                    child: const Icon(
+                      EvaIcons.personOutline,
+                      color: Color(0xFF8E8E8E),
+                      size: 16,
+                    ),
+                  ),
+                  SizedBox(width: bodyMargin,),
+                  Text(
+                    "عباس",
+                    style: TextStyle(
+                        color: secondaryColor, fontSize: 14),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ],
+              ),
+              SizedBox(height: bodyMargin,),
+              Obx(
+                ()=> TextField(
+                  controller: controller.textEditController,
+                  maxLines: null,
+                  maxLength: maxTextFeildCommentLength,
+                  style: Get.textTheme.bodyText2?.copyWith(color: const Color(0xFF878787)),
+                  decoration: InputDecoration(
+                      hintText: "دیگاه خودت رو بنویس",
+                      prefixIcon: const Icon(EvaIcons.editOutline,color: Color(0xFF878787),),
+                    suffixIcon: controller.commentTextField.value.isNotEmpty ? InkWell(
+                        onTap: (){controller.clearCommentText();},
+                        child: Icon(EvaIcons.closeCircleOutline,color: secondaryColor,)) : const SizedBox.shrink(),
+                      counterText: '${controller.commentTextField.value.length}/$maxTextFeildCommentLength',
+                      errorText: controller.errorTextFeild.value ? 'فیلد مورد نظر را پر کنید' : null,
+
+                  ),
+                  onChanged: (val){
+                    controller.updateEditTextComment(val);
+                  },
+                ),
+              ),
+              const Spacer(),
+              SizedBox(
+                height: 60,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(flex:1,child: ElevatedButton(onPressed: (){
+                      //TODO add comment and rating
+                      if(controller.commentTextField.value.isEmpty){
+                        controller.errorTextFeild.value = true;
+                      }else{
+                        var comment = CommentModel(name: 'عباس', comment: controller.commentTextField.value, dateTime: DateTime.now());
+                        fakeComments.add(comment);
+                        controller.clearCommentText();
+                        Get.back();
+                      }
+
+
+                    }, child: const Text('ثبت'))),
+                    SizedBox(width: bodyMargin,),
+                    Expanded(
+                        flex:1,
+                        child: ElevatedButton(
+                            onPressed: (){
+                              controller.clearCommentText();
+                              Get.back();
+                            },
+                          style: ElevatedButton.styleFrom(
+                            primary: backgroundColor,
+                            onPrimary: primaryColor,
+                            elevation: 0,
+                            side: BorderSide(color: primaryColor)
+                          ), child: const Text('انصراف'),
+                        ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+      barrierColor: bottomSheetBarrierColor,
+      backgroundColor: bottomSheetBgColor,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(35),
+        topRight: Radius.circular(35),
+      )),
     );
   }
 
@@ -181,6 +316,7 @@ class ItemDetailsScreen extends StatelessWidget {
     var item = itemDetails;
     return Obx(
       () => ListView.builder(
+        reverse: true,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 6),
@@ -216,8 +352,8 @@ class ItemDetailsScreen extends StatelessWidget {
                     ? 'نمایش بیشتر دیدگاه ها'
                     : 'نمایش کمتر',
                 style: TextStyle(
-                    fontSize: 12,
-                    color: primaryColor,
+                  fontSize: 12,
+                  color: primaryColor,
                 ),
               ),
               Icon(

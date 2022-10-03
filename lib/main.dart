@@ -66,7 +66,23 @@ class MyApp extends StatelessWidget {
                   primary: primaryColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(1000)),
-                  elevation: 16))),
+                  elevation: 16)),
+          inputDecorationTheme: InputDecorationTheme(
+             hintStyle: Get.textTheme.bodyText2,
+             fillColor: textFiledFillColor,
+             filled: true,
+             enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: textFiledFillColor),
+                    borderRadius: BorderRadius.circular(15)),
+            focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: textFiledFillColor),
+                    borderRadius: BorderRadius.circular(15)),
+            border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                counterStyle: Get.textTheme.bodyText2?.copyWith(fontSize: 10),
+          )
+      ),
+
 
       home: const ItemDetailsScreen(),
     );

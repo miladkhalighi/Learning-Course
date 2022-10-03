@@ -1,4 +1,5 @@
 import 'package:expandable/expandable.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../model/comment_model.dart';
@@ -8,6 +9,12 @@ class ItemDetailsController extends GetxController{
   RxBool showComments = false.obs;
   RxBool showAllComments = false.obs;
   var expandableController = ExpandableController();
+  var textEditController = TextEditingController();
+  RxString commentTextField = "".obs;
+  RxBool errorTextFeild = false.obs;
+
+
+
   changeExpand(){
     expand.value = !expand.value;
     expandableController.expanded = expand.value;
@@ -30,5 +37,13 @@ class ItemDetailsController extends GetxController{
        return lessCmdLength;
      }
     }
+  }
+  updateEditTextComment(String str){
+    commentTextField.value = str;
+    errorTextFeild.value = false;
+  }
+  clearCommentText(){
+    commentTextField.value = "";
+    textEditController.text = "";
   }
 }
