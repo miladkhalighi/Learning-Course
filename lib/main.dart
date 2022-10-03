@@ -11,11 +11,11 @@ import 'package:learning_course/view/screens/item_details/item_details_screen.da
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: backgroundColor,
-      statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: primaryColor,
-      systemNavigationBarIconBrightness: Brightness.light,
-      systemNavigationBarDividerColor: Colors.transparent,
+    statusBarColor: secondaryColor,
+    statusBarIconBrightness: Brightness.light,
+    systemNavigationBarColor: primaryColor,
+    systemNavigationBarIconBrightness: Brightness.light,
+    systemNavigationBarDividerColor: Colors.transparent,
   ));
   runApp(const MyApp());
 }
@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
       ),
 
 
-      home: const ItemDetailsScreen(),
+      home: const BottomNavigationScreen(),
     );
   }
 }

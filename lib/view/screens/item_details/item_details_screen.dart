@@ -22,7 +22,6 @@ class ItemDetailsScreen extends StatelessWidget {
     var pageController = PageController();
     var itemDetailsController = Get.put(ItemDetailsController());
     var item = itemDetails;
-
     return Scaffold(
         body: Stack(
       children: [
@@ -592,6 +591,20 @@ class ItemDetailsScreen extends StatelessWidget {
                   dotColor: secondaryTextColor),
             ),
           ),
+          //gradinet
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [secondaryColor.withOpacity(0.8),secondaryColor.withOpacity(0.6),Colors.transparent])
+                ),
+              )),
           Positioned(
             top: 48,
             right: 24,
@@ -615,9 +628,10 @@ class ItemDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
   }
+
 }
