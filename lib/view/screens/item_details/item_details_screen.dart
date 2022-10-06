@@ -247,6 +247,7 @@ class ItemDetailsScreen extends StatelessWidget {
                   decoration: InputDecoration(
                       hintText: "دیگاه خودت رو بنویس",
                       prefixIcon: const Icon(EvaIcons.editOutline,color: Color(0xFF878787),),
+                    hintStyle: Get.textTheme.bodyText2,
                     suffixIcon: controller.commentTextField.value.isNotEmpty ? InkWell(
                         onTap: (){controller.clearCommentText();},
                         child: Icon(EvaIcons.closeCircleOutline,color: secondaryColor,)) : const SizedBox.shrink(),
